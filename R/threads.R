@@ -64,7 +64,6 @@ extract_thread <- function(path) {
 
 }
 
-
 get_date <- function(x) {
   as.POSIXct(x$created_utc, origin = "1970-01-01", tz = "UTC")
 }
