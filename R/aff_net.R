@@ -7,10 +7,12 @@
 #' @return A named list. Names are users and values are subreddits.
 #' @export
 #'
-aff_net <- function(user_list) {
+create_aff_net <- function(user_list) {
   
   if (all(table(user_list) != 1)) warning("You're looking at duplicated users. Something must be wrong!")
   if (!exists("reddit", where = globalenv())) stop(init_message, call. = FALSE)
+  
+  message("Downloading subreddit lists for ", length(user_list), " users")
   
   output <- vector("list", length(user_list))
   
@@ -25,7 +27,11 @@ aff_net <- function(user_list) {
   
   names(output) <- user_list
   result <- purrr::transpose(output)$result
-  message(length(output) - length(result), " users were lost")
+  
+  diff <- length(output) - length(result)
+  
+  if (diff > 0) message("\nUnable to download information for ", diff, " users")
+  
   return(result)
 }
 

@@ -4,13 +4,18 @@
 \alias{init_reddit}
 \title{Initialize Reddit instance}
 \usage{
-init_reddit(username, password)
+init_reddit(username, password, client_id, client_secret)
 }
 \arguments{
 \item{username}{username}
 
 \item{password}{password}
+
+\item{client_id}{client_id}
+
+\item{client_secret}{client_secret}
 }
 \description{
-Initialize Reddit instance
+You must register for an application at https://www.reddit.com/prefs/apps/
+Follow these steps https://github.com/reddit-archive/reddit/wiki/OAuth2-Quick-Start-Example#first-steps
 }

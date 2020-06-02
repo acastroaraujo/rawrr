@@ -18,36 +18,26 @@ install_praw <- function(method = "auto", conda = "auto") {
 init_message <- paste0("Use init_reddit() to start a Reddit instance.")
 
 #' Initialize Reddit instance
+#' 
+#' You must register for an application at https://www.reddit.com/prefs/apps/
+#' Follow these steps https://github.com/reddit-archive/reddit/wiki/OAuth2-Quick-Start-Example#first-steps
 #'
 #' @param username username
 #' @param password password
+#' @param client_id client_id
+#' @param client_secret client_secret
 #'
 #' @export
 #'
-init_reddit <- function(username, password) {
+init_reddit <- function(username, password, client_id, client_secret) {
 
-  # makeActiveBinding(
-  #   sym = "reddit", 
-  #   env = globalenv(),
-  #   fun = {
-  #     function() rawr:::praw$Reddit(
-  #       client_id = "YO_Hqf9k3SB3sg",
-  #       client_secret = "vwfEPm-4cz0ARWBEFkRdgmt2mhU",
-  #       password = password,
-  #       user_agent = 'Comment Extraction (by acastroaraujo)',
-  #       username = username
-  #       )
-  #     }
-  #   )
-  
-  
   assign(
     x = "reddit", 
     value = praw$Reddit(
-      client_id = "YO_Hqf9k3SB3sg",
-      client_secret = "vwfEPm-4cz0ARWBEFkRdgmt2mhU",
+      client_id = client_id,
+      client_secret = client_secret,
       password = password,
-      user_agent = 'Comment Extraction (by acastroaraujo)',
+      user_agent = paste0('comment extraction (by /u/', username,')'),
       username = username), 
     envir = globalenv()
   )
@@ -55,11 +45,7 @@ init_reddit <- function(username, password) {
   
 }
 
-# 
-# reddit <<- praw$Reddit(client_id = "YO_Hqf9k3SB3sg",
-#                        client_secret = "vwfEPm-4cz0ARWBEFkRdgmt2mhU",
-#                        password = password,
-#                        user_agent = 'Comment Extraction (by acastroaraujo)',
-#                        username = username)
+
+globalVariables("reddit")
 
 

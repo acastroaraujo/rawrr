@@ -20,7 +20,7 @@ download_sub_urls <- function(sub, limit = 1e3) {
   
   message("Pulling from /r/", sub)
   
-  subreddit <- reddit$subreddit("rstats")
+  subreddit <- reddit$subreddit(sub)
   top <- subreddit$top(limit = limit) ## 1000 is maximum limit
   
   reticulate::iterate(
@@ -29,10 +29,9 @@ download_sub_urls <- function(sub, limit = 1e3) {
     ) %>% 
     dplyr::bind_rows() %>% 
     dplyr::mutate(date = as.POSIXct(date, origin = "1970-01-01", tz = "UTC"),
-                  sub = sub)
+                  subreddit = sub)
   
 }
-
 
 
 #' Download urls by subreddit
@@ -62,7 +61,7 @@ download_keyword_urls <- function(keyword, sub = "all", sort_by = "top") {
   ) %>% 
     dplyr::bind_rows() %>% 
     dplyr::mutate(date = as.POSIXct(date, origin = "1970-01-01", tz = "UTC"),
-                  sub = sub)
+                  subreddit = sub)
   
 }
 
@@ -74,6 +73,6 @@ url_info <- function(x) {
     post_score = x$score,
     num_comments = x$num_comments,
     date = x$created_utc,
-    link = x$permalink
+    path = x$permalink
   )
 }

@@ -18,4 +18,5 @@ Imports:
     dplyr,
     tibble,
     purrr,
-    stringr
+    stringr,
+    rlang
