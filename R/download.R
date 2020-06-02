@@ -1,6 +1,4 @@
 
-
-
 #' Download urls by subreddit
 #'
 #' @param sub a string representing a subreddit
@@ -55,13 +53,18 @@ download_keyword_urls <- function(keyword, sub = "all", sort_by = "top") {
   subreddit <- reddit$subreddit(sub)
   top <- subreddit$search(keyword, limit = NULL, sort = sort_by) ## maximum limit
   
-  reticulate::iterate(
+  output <- reticulate::iterate(
     it = top, 
     f = url_info
   ) %>% 
     dplyr::bind_rows() %>% 
     dplyr::mutate(date = as.POSIXct(date, origin = "1970-01-01", tz = "UTC"),
                   subreddit = sub)
+  
+  if (sub == "all") {
+    output <- output %>% 
+      dplyr::mutate(subreddit = stringr::str_replace(.data$path, "\\/r\\/([A-Za-z\\d]+)\\/.*", "\\1"))
+  }
   
 }
 
