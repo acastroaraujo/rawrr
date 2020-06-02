@@ -62,8 +62,8 @@ download_keyword_urls <- function(keyword, sub = "all", sort_by = "top") {
                   subreddit = sub)
   
   if (sub == "all") {
-    output <- output %>% 
-      dplyr::mutate(subreddit = stringr::str_replace(.data$path, "\\/r\\/([A-Za-z\\d]+)\\/.*", "\\1"))
+    output <- output %>%
+      dplyr::mutate(subreddit = stringr::str_replace(.data$path, "\\/r\\/([A-Za-z\\d_]+)\\/.*", "\\1"))
   }
   
   return(output)
