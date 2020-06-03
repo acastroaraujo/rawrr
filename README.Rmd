@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 knitr::include_graphics("rawr.jpg")
 ```
 
-This package calls a limited subset of Reddit's API in order to gather information on threads, subreddits, and users. 
+This package gives you access to Reddit's API in order to gather information on _threads_, _subreddits_, and _users._ 
 
 Under the hood, it calls Python's [__PRAW__](https://praw.readthedocs.io/) library via the [__reticulate__](https://rstudio.github.io/reticulate/) package.
 

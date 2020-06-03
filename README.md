@@ -9,8 +9,8 @@
 
 <img src="rawr.jpg" width="40%" />
 
-This package calls a limited subset of Reddit’s API in order to gather
-information on threads, subreddits, and users.
+This package gives you access to Reddit’s API in order to gather
+information on *threads*, *subreddits*, and *users.*
 
 Under the hood, it calls Python’s
 [**PRAW**](https://praw.readthedocs.io/) library via the
