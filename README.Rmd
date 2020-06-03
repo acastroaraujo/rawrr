@@ -18,9 +18,15 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
+```{r, out.width="40%", echo=FALSE}
+knitr::include_graphics("rawr.jpg")
+```
+
 This package calls a limited subset of Reddit's API in order to gather information on threads, subreddits, and users. 
 
-Under the hood, it calls Python's PRAW library via the reticulate package.
+Under the hood, it calls Python's [__PRAW__](https://praw.readthedocs.io/) library via the [__reticulate__](https://rstudio.github.io/reticulate/) package.
+
+RAWR stands for __Reddit Api Wrapper for R__.
 
 ## Installation
 
