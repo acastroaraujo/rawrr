@@ -16,7 +16,7 @@ Under the hood, it calls Python’s
 [**PRAW**](https://praw.readthedocs.io/) library via the
 [**reticulate**](https://rstudio.github.io/reticulate/) package.
 
-RAWR stands for **Reddit Api Wrapper for R**.
+RAWR stands for **Reddit API Wrapper for R**.
 
 ## Installation
 

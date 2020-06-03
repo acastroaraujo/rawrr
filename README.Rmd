@@ -26,7 +26,7 @@ This package gives you access to Reddit's API in order to gather information on 
 
 Under the hood, it calls Python's [__PRAW__](https://praw.readthedocs.io/) library via the [__reticulate__](https://rstudio.github.io/reticulate/) package.
 
-RAWR stands for __Reddit Api Wrapper for R__.
+RAWR stands for __Reddit API Wrapper for R__.
 
 ## Installation
 
