@@ -71,7 +71,7 @@ download_keyword_urls <- function(
   ) {
   
   if (!exists("reddit", where = globalenv())) stop(init_message, call. = FALSE)
-  if (limit > 250) warning("The API will only allow limit = 250", call. = FALSE)
+  if (!is.null(limit)) if(limit > 250) warning("The API will only allow limit = 250", call. = FALSE)
   type <- match.arg(sort_by)
   time <- match.arg(time_filter)
   
