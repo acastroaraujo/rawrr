@@ -23,6 +23,7 @@ create_aff_net <- function(user_list) {
     output[[i]] <- sub_list_safe(user_list[[i]])
     
     setTxtProgressBar(pb, i)
+    
   }
   
   names(output) <- user_list

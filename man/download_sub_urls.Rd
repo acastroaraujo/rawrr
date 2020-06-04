@@ -4,10 +4,19 @@
 \alias{download_sub_urls}
 \title{Download urls by subreddit}
 \usage{
-download_sub_urls(sub, limit = 1000)
+download_sub_urls(
+  sub,
+  sort_by = c("top", "hot", "new"),
+  time_filter = c("all", "day", "hour", "month", "week", "year"),
+  limit = 1000
+)
 }
 \arguments{
 \item{sub}{a string representing a subreddit}
+
+\item{sort_by}{Can be one of "top" (default), "hot", or "new".}
+
+\item{time_filter}{can be one of: "all" (default), "day", "hour", "month", "week", or "year"}
 
 \item{limit}{a number no greater than 1,000}
 }

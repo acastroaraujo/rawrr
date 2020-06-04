@@ -3,7 +3,7 @@
 #'
 #' @param path a character string that starts with /r/, which you obtain using either the download_sub_urls() or the download_keyword_urls() functions
 #'
-#' @return Two tibbles: information on nodes and an edge list
+#' @return A list with two tibbles: 1. information on nodes and 2. an edge list
 #' @export
 #'
 #' @examples
@@ -36,16 +36,16 @@ extract_thread <- function(path) {
   nodes <- submission$comments$list()  ## all nodes
   
   branches_df <- tibble::tibble(
-    name = purrr::map_chr(nodes, ~ .x[["id"]]),
+    name = purrr::map_chr(nodes, ~ .x$id),
     author = purrr::map_chr(nodes, get_author),
     date = purrr::map_dbl(nodes, get_date),
-    children = purrr::map_int(nodes, ~ length(.x[["replies"]][py_index])),
-    descendents = purrr::map_int(nodes, ~ length(.x[["replies"]]$list())),
-    text = purrr::map_chr(nodes, ~ .x[["body"]]),
-    score = purrr::map_int(nodes, ~ .x[["score"]]),
+    children = purrr::map_int(nodes, ~ length(.x$replies[py_index])),
+    descendents = purrr::map_int(nodes, ~ length(.x$replies$list())),
+    text = purrr::map_chr(nodes, ~ .x$body),
+    score = purrr::map_int(nodes, ~ .x$score),
     title = submission$title,
-    subreddit = as.character(submission[["subreddit"]]),
-    path = submission[["permalink"]]
+    subreddit = as.character(submission$subreddit),
+    path = submission$permalink
   ) %>% 
     dplyr::mutate(date = as.POSIXct(date, origin = "1970-01-01"))
   
@@ -82,7 +82,6 @@ add_threads <- function(df) {
   output <- purrr::map(df$path, rawr::extract_thread) %>% 
     purrr::transpose()
   
-  df$doc_id <- seq_len(nrow(df))
   df$nodes <- output$nodes
   df$edges <- output$edges
   

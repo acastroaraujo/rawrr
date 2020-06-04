@@ -2,25 +2,35 @@
 % Please edit documentation in R/download.R
 \name{download_keyword_urls}
 \alias{download_keyword_urls}
-\title{Download urls by subreddit}
+\title{Download urls by search query}
 \usage{
-download_keyword_urls(keyword, sub = "all", sort_by = "top")
+download_keyword_urls(
+  query,
+  sub = "all",
+  sort_by = c("top", "hot", "new", "relevance", "comments"),
+  limit = NULL,
+  time_filter = c("all", "day", "hour", "month", "week", "year")
+)
 }
 \arguments{
-\item{keyword}{a search query, for more information building a search query go here: https://www.reddit.com/wiki/search}
+\item{query}{a search query, for more information building a search query go here: https://www.reddit.com/wiki/search}
 
 \item{sub}{a subreddit, unless you want to search in all subreddits, in which case the value is "all" (default)}
 
 \item{sort_by}{Can be one of "top" (default), "relevance", "hot", "new", or "comments".}
+
+\item{limit}{a number, the API won't give you more than 250 results}
+
+\item{time_filter}{can be one of: "all" (default), "day", "hour", "month", "week", or "year"}
 }
 \value{
 a tibble
 }
 \description{
-Download urls by subreddit
+Download urls by search query
 }
 \examples{
 \dontrun{
-df <- download_keyword_urls(keyword = "reticulate", sub = "rstats")
+df <- download_keyword_urls(query = "reticulate", sub = "rstats")
 }
 }
