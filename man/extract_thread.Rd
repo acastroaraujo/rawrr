@@ -10,7 +10,7 @@ extract_thread(path)
 \item{path}{a character string that starts with /r/, which you obtain using either the download_sub_urls() or the download_keyword_urls() functions}
 }
 \value{
-Two tibbles: information on nodes and an edge list
+A list with two tibbles: 1. information on nodes and 2. an edge list
 }
 \description{
 Extract a thread from a path

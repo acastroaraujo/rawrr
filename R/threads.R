@@ -14,23 +14,23 @@ extract_thread <- function(path) {
   
   if (!exists("reddit", where = globalenv())) stop(init_message, call. = FALSE)
   
-  message("Extracting comments from ", path, "\n")
+  message("Extracting comments from ", path)
   
   thread <- paste0("https://www.reddit.com", path, ")")
   submission <- reddit[["submission"]](url = thread)
-  submission[["comments"]][["replace_more"]](limit = NULL)
+  submission$comments$replace_more(limit = NULL)
   
   root_df <- tibble::tibble(
-    name = submission[["id"]],
-    author = as.character(submission[["author"]]),
+    name = submission$id,
+    author = as.character(submission$author),
     date = get_date(submission),
-    children = length(submission[["comments"]][py_index]),
-    descendents = length(submission[["comments"]]$list()),
-    text = submission[["selftext"]],
-    title = submission[["title"]],
-    media = submission[["url"]],
-    subreddit = as.character(submission[["subreddit"]]),
-    path = submission[["permalink"]]
+    children = length(submission$comments[py_index]),
+    descendents = length(submission$comments$list()),
+    text = submission$selftext,
+    title = submission$title,
+    media = submission$url,
+    subreddit = as.character(submission$subreddit),
+    path = submission$permalink
   )
   
   nodes <- submission$comments$list()  ## all nodes
@@ -57,8 +57,12 @@ extract_thread <- function(path) {
     output[[i]] <- list(from = nodes[[i]][["parent_id"]], to = as.character(nodes[[i]]))
   }
   
-  edge_list <- dplyr::bind_rows(output) %>%
-    dplyr::mutate(from = stringr::str_sub(.data$from, 4))
+  edge_list <- dplyr::bind_rows(output)
+  
+  if (length(nodes) > 0) {
+    edge_list <- edge_list %>% 
+      dplyr::mutate(from = stringr::str_sub(.data$from, 4))
+  }
   
   list(nodes = df, edges = edge_list)  ## consider adding S3 class attribute with structure() in the future
 
@@ -79,13 +83,17 @@ add_threads <- function(df) {
   if ("nodes" %in% colnames(df)) stop("data frame can't contain a column called <<nodes>>", call. = FALSE)
   if ("edges" %in% colnames(df)) stop("data frame can't contain a column called <<edges>>", call. = FALSE)
   
-  output <- purrr::map(df$path, rawr::extract_thread) %>% 
+  output <- purrr::map(df$path, extract_thread_safely) %>% 
     purrr::transpose()
   
-  df$nodes <- output$nodes
-  df$edges <- output$edges
+  df$nodes <- purrr::map(output$result, purrr::pluck, "nodes")
+  df$edges <- purrr::map(output$result, purrr::pluck, "edges")
+  
+  num_errors <- sum(purrr::map_lgl(output$error, ~ !is.null(.x)))
+  if (num_errors > 0) warning(num_errors, " errors downloading threads", call. = FALSE)
   
   return(df)
+  
 }
 
 get_date <- function(x) {
@@ -98,4 +106,4 @@ get_author <- function(x) {
   as.character(output)
 }
 
-
+extract_thread_safely <- purrr::safely(extract_thread)
