@@ -13,20 +13,20 @@ knitr::opts_chunk$set(
 )
 ```
 
-# rawr
+# rawrr
 
 <!-- badges: start -->
 <!-- badges: end -->
 
 ```{r, out.width="40%", echo=FALSE}
-knitr::include_graphics("rawr.jpg")
+knitr::include_graphics("rawrr.jpg")
 ```
 
 This package gives you access to Reddit's API in order to gather information on _threads_, _subreddits_, and _users._ 
 
 Under the hood, it calls Python's [__PRAW__](https://praw.readthedocs.io/) library via the [__reticulate__](https://rstudio.github.io/reticulate/) package.
 
-RAWR stands for __Reddit API Wrapper for R__.
+RAWRR stands for __Reddit API Wrapper for R using Reticulate__ ;)
 
 ## Installation
 
@@ -34,7 +34,7 @@ You can install the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("acastroaraujo/rawr")
+devtools::install_github("acastroaraujo/rawrr")
 ```
 
 

@@ -1,7 +1,7 @@
 
 .onAttach <- function(libname, pkgname) {
   packageStartupMessage(
-    "Welcome to RAWR!\n", 
+    "Welcome to rawrr!\n", 
     "To use this package you need to install_praw() and init_reddit()\n",
     "You must register for an application at https://www.reddit.com/prefs/apps/"
   )
