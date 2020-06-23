@@ -42,6 +42,7 @@ init_reddit <- function(username, password, client_id, client_secret) {
     envir = globalenv()
   )
   
+  message("Connected as <<", as.character(reddit$user$me()), ">>")
   
 }
 
