@@ -1,7 +1,10 @@
 
+# TO DO: ADD A FUNCTION THAT ESTIMATES THE TIME REQUIRED FOR DOWNLOAD
+
 #' Extract a thread from a path
 #'
 #' @param path a character string that starts with /r/, which you obtain using either the download_sub_urls() or the download_keyword_urls() functions
+#' @param replace_limit either `NULL` (default) or a positive integer. This corresponds to the `limit` argument in PRAW's `replace_more()` method. See here: https://praw.readthedocs.io/en/latest/code_overview/other/commentforest.html#praw.models.comment_forest.CommentForest.replace_more Currently, this is what causes getting data to be slow in some cases. 
 #'
 #' @return A list with two tibbles: 1. information on nodes and 2. an edge list
 #' @export
@@ -10,16 +13,19 @@
 #' \dontrun{
 #' df <- extract_thread("/r/rstats/comments/f5bxyk/r_will_use_stringsasfactors_false_by_default_in/")
 #' }
-extract_thread <- function(path) {
+extract_thread <- function(path, replace_limit = NULL) {
   
   if (!exists("reddit", where = globalenv())) stop(init_message, call. = FALSE)
+  if (!is.null(replace_limit) & is.numeric(replace_limit)) {
+    if (!is_wholenumber(replace_limit) | replace_limit < 0) stop("<<replace_limit>> must be `NULL` or a whole number >= 0", call. = FALSE)
+  }
   
-  message("Extracting comments from ", path)
+  message("Extracting: ", path)
   
   thread <- paste0("https://www.reddit.com", path, ")")
   submission <- reddit[["submission"]](url = thread)
-  submission$comments$replace_more(limit = NULL)
-  
+  submission$comments$replace_more(limit = replace_limit) ## this step can be extremely slow...
+                                                  ## how can we fix this? https://praw.readthedocs.io/en/latest/tutorials/comments.html
   root_df <- tibble::tibble(
     name = submission$id,
     author = as.character(submission$author),
@@ -106,4 +112,10 @@ get_author <- function(x) {
   as.character(output)
 }
 
+is_wholenumber <- function(x, tol = .Machine$double.eps^0.5)  {
+  abs(x - round(x)) < tol
+}
+
 extract_thread_safely <- purrr::safely(extract_thread)
+
+

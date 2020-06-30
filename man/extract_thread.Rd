@@ -4,10 +4,12 @@
 \alias{extract_thread}
 \title{Extract a thread from a path}
 \usage{
-extract_thread(path)
+extract_thread(path, replace_limit = NULL)
 }
 \arguments{
 \item{path}{a character string that starts with /r/, which you obtain using either the download_sub_urls() or the download_keyword_urls() functions}
+
+\item{replace_limit}{either `NULL` (default) or a positive integer. This corresponds to the `limit` argument in PRAW's `replace_more()` method. See here: https://praw.readthedocs.io/en/latest/code_overview/other/commentforest.html#praw.models.comment_forest.CommentForest.replace_more Currently, this is what causes getting data to be slow in some cases.}
 }
 \value{
 A list with two tibbles: 1. information on nodes and 2. an edge list
