@@ -43,14 +43,14 @@ It currently has these functions:
 
 - `init_reddit(username, password, client_id, client_secret)`
 
-- `download_sub_urls()`: Download urls by subreddit
+- `download_sub_urls()`: Downloads urls by subreddit
 
-- `download_keyword_urls()`: Download urls by search query
+- `download_keyword_urls()`: Downloads urls by search query
 
-- `extract_thread()`: Extract a thread from a path
+- `extract_thread()`: Extracts a thread from a path
 
-- `add_threads()`	Add thread information to a data frame, like the one produced by the `download_*_urls()` functions
+- `add_threads()`	Adds thread information to a data frame, like the one produced by the `download_*_urls()` functions
 
-- `create_aff_net()`: Create a bipartite network of users and recent subreddits from a list of users
+- `create_aff_net()`: Creates a bipartite network of users and recent subreddits from a list of users
 
-- `user_net()`: Create a network of user interactions from a data frame, like the one produced by `add_threads()`
+- `user_net()`: Creates an edge list (i.e. a network) of user interactions from a data frame, like the one produced by `add_threads()`
