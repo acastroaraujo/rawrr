@@ -27,3 +27,25 @@ You can install the development version from
 # install.packages("devtools")
 devtools::install_github("acastroaraujo/rawrr")
 ```
+
+It currently has these functions:
+
+  - `install_praw()`: A simple wrapper for
+    `reticulate::py_install("praw", method = method, conda = conda)`
+
+  - `init_reddit(username, password, client_id, client_secret)`
+
+  - `download_sub_urls()`: Download urls by subreddit
+
+  - `download_keyword_urls()`: Download urls by search query
+
+  - `extract_thread()`: Extract a thread from a path
+
+  - `add_threads()` Add thread information to a data frame, like the one
+    produced by the `download_*_urls()` functions
+
+  - `create_aff_net()`: Create a bipartite network of users and recent
+    subreddits from a list of users
+
+  - `user_net()`: Create a network of user interactions from a data
+    frame, like the one produced by `add_threads()`
