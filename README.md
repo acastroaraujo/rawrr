@@ -37,7 +37,8 @@ It currently has these functions:
 
   - `download_sub_urls()`: Downloads urls by subreddit
 
-  - `download_keyword_urls()`: Downloads urls by search query
+  - `download_keyword_urls()`: Downloads urls by [search
+    query](https://www.reddit.com/wiki/search)
 
   - `extract_thread()`: Extracts a thread from a path
 
