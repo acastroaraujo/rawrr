@@ -7,7 +7,7 @@
 
 <!-- badges: end -->
 
-<img src="rawrr.jpg" width="40%" />
+<img src="man/figures/rawrr.jpg" width="40%" />
 
 This package gives you access to Reddit’s API in order to gather
 information on *threads*, *subreddits*, and *users.*
@@ -30,8 +30,10 @@ devtools::install_github("acastroaraujo/rawrr")
 
 It currently has these functions:
 
-  - `install_praw()`: A simple wrapper for
-    `reticulate::py_install("praw", method = method, conda = conda)`
+  - `install_praw()`: A simple wrapper for the following:
+    
+    `reticulate::py_install("praw", method = "auto", conda = "auto", pip
+    = TRUE)`
 
   - `init_reddit(username, password, client_id, client_secret)`
 

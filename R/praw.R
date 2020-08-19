@@ -11,7 +11,7 @@
 #' @export
 #'
 install_praw <- function(method = "auto", conda = "auto") {
-  reticulate::py_install("praw", method = method, conda = conda)
+  reticulate::py_install("praw", method = method, conda = conda, pip = TRUE)
 }
 
 init_message <- paste0("Use init_reddit() to start a Reddit instance.")
